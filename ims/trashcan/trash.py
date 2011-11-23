@@ -4,6 +4,7 @@ __docformat__ = 'plaintext'
 from Products.CMFCore.utils import getToolByName
 from OFS.Folder import Folder
 from AccessControl import ClassSecurityInfo
+from config import GLOBALS
 from permissions import ManageTrash
 from Globals import InitializeClass, DTMLFile
 from Products.Archetypes.ReferenceEngine import Reference
