@@ -3,5 +3,5 @@
  <required tool_id="portal_trash_can"
            class="ims.trashcan.trash.PloneTrashCan"/>
  <required tool_id="portal_trash_catalog"
-           class="ims.trashcan.TrashCatalog"/>
+           class="ims.trashcan.catalog.TrashCatalog"/>
 </tool-setup>
