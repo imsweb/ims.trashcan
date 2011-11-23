@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<import-steps>
+ <import-step id="dcegintranet-various" version="20070712-01"
+              handler="Products.PloneTrashCan.setuphandlers.importVarious"
+              title="Additional PloneTrashCan site policy setup">
+  <dependency step="catalog" />
+    PloneTrashCan site policy
+ </import-step>
+</import-steps>

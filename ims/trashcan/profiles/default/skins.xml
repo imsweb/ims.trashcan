@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+
+ <object name="ims.trashcan" meta_type="Filesystem Directory View"
+    directory="ims.trashcan:skins/PloneTrashCan"/>
+ <skin-path name="*">
+   <layer name="ims.trashcan" insert-after="custom"/>
+ </skin-path>
+
+</object>

@@ -1,0 +1,15 @@
+README.txt
+setup.cfg
+setup.py
+ims/__init__.py
+ims.trashcan.egg-info/PKG-INFO
+ims.trashcan.egg-info/SOURCES.txt
+ims.trashcan.egg-info/dependency_links.txt
+ims.trashcan.egg-info/entry_points.txt
+ims.trashcan.egg-info/namespace_packages.txt
+ims.trashcan.egg-info/not-zip-safe
+ims.trashcan.egg-info/paster_plugins.txt
+ims.trashcan.egg-info/requires.txt
+ims.trashcan.egg-info/top_level.txt
+ims/trashcan/__init__.py
+ims/trashcan/tests.py

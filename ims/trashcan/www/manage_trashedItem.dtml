@@ -1,0 +1,19 @@
+<dtml-var manage_page_header>
+<dtml-var manage_tabs>
+
+<p class="form-help">
+This is the trashed item.  You must copy it out of here.
+</p>
+
+<p class="form-help">Path: <dtml-var expr="getOrigPath()"></p>
+
+         
+Deleted on <dtml-var CreationDate>.<br/><br/>
+
+<form action="manage_copyToPath" method="post">
+
+  <input type="submit" value="Restore Item" />
+  
+</form>
+
+<dtml-var manage_page_footer>
