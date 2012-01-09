@@ -2,7 +2,7 @@
 <object name="portal_skins">
 
  <object name="ims.trashcan" meta_type="Filesystem Directory View"
-    directory="ims.trashcan:skins/PloneTrashCan"/>
+    directory="ims.trashcan:skins/ims.trashcan"/>
  <skin-path name="*">
    <layer name="ims.trashcan" insert-after="custom"/>
  </skin-path>
