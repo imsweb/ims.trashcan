@@ -75,7 +75,7 @@ class PloneTrashCan(Folder):
         time='%s.%s' % (now.strftime('%Y-%m-%d'), str(now.millis())[7:])
         rand=str(random())[2:6]
         obj_id = '%s-%s' % (object.getId(),time+rand)
-        self.manage_addProduct['PloneTrashCan'].manage_addTrashedItem(obj_id)
+        self.manage_addProduct['ims.trashcan'].manage_addTrashedItem(obj_id)
         return self.restrictedTraverse(obj_id)
       else:
         return self.restrictedTraverse(object.getId())
