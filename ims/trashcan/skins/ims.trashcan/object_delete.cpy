@@ -13,6 +13,7 @@ from AccessControl import Unauthorized
 from Products.CMFPlone.utils import safe_unicode
 from Products.CMFPlone.utils import transaction_note
 from Products.CMFPlone import PloneMessageFactory as _
+from Products.CMFCore.utils import getToolByName
 
 REQUEST = context.REQUEST
 if REQUEST.get('REQUEST_METHOD', 'GET').upper() == 'GET':
@@ -29,7 +30,8 @@ if lock_info.is_locked():
     return state.set(status = 'failure')
 else:
     ### start trash wrapper ###
-    context.portal_trash_can.copyToTrash(context, REQUEST)
+    can = getToolByName(context,'portal_trash_can')
+    can.trash(context)
     ### end trash wrapper ###
     parent.manage_delObjects(context.getId())
     message = _(u'${title} has been deleted.',

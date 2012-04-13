@@ -14,6 +14,7 @@ from Products.CMFPlone.utils import transaction_note
 from Products.CMFPlone import PloneMessageFactory as _
 from ZODB.POSException import ConflictError
 from OFS.ObjectManager import BeforeDeleteException
+from Products.CMFCore.utils import getToolByName
 
 if context.REQUEST.get('REQUEST_METHOD', 'GET').upper() == 'GET':
     raise Unauthorized, 'This method can not be accessed using a GET request'
@@ -39,7 +40,8 @@ for path in paths:
     try:
         obj = portal.restrictedTraverse(path)
         ### start trash wrapper ###
-        context.portal_trash_can.copyToTrash(obj, context.REQUEST)
+        can = getToolByName(portal,'portal_trash_can')
+        can.trash(obj)
         ### end trash wrapper ###
         obj_parent = obj.aq_inner.aq_parent
         obj_parent.manage_delObjects([obj.getId()])

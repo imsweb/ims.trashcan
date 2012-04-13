@@ -7,6 +7,22 @@
 
   <five:registerPackage package="." initialize=".initialize" />
 
+  <!--<subscriber
+     for="Products.Archetypes.interfaces.base.IBaseObject
+          zope.app.container.interfaces.IObjectRemovedEvent"
+     handler=".events.trashEventHandler" /> -->
+  <!-- we can't use this :( because it first fires on each child individually -->
+
+  <subscriber
+     for=".interfaces.ITrashedItem
+          zope.lifecycleevent.interfaces.IObjectAddedEvent"
+     handler=".events.trashAdded" />
+
+  <subscriber
+     for=".interfaces.ITrashedItem
+          zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+     handler=".events.trashRemoved" />
+
   <genericsetup:registerProfile
       name="default"
       title="ims.trashcan"
@@ -14,5 +30,5 @@
       description="Installs the ims.trashcan package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  
+
 </configure>

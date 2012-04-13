@@ -34,7 +34,8 @@ if isLinked(context):
             mapping={u'title' : title})
     else:
         ### start trash wrapper ###
-        context.portal_trash_can.copyToTrash(context, context.REQUEST)
+        can = getToolByName(context,'portal_trash_can')
+        can.trash(context)
         ### end trash wrapper ###
         parent.manage_delObjects(context.getId())
         message = _(u'${title} has been deleted.',

@@ -2,16 +2,16 @@
 <dtml-var manage_tabs>
 
 <p class="form-help">
-This is the trashed item.  You must copy it out of here.
+You can restore this content to its original path. If path no longer exists it will restore to the root.
+Regular Zope restrictions apply (duplicate ids, invalid types, etc.)
 </p>
 
-<p class="form-help">Path: <dtml-var expr="getOrigPath()"></p>
+Original Title: <dtml-var Title><br/>
+Deleted on: <dtml-var CreationDate>.<br/><br/>
 
-         
-Deleted on <dtml-var CreationDate>.<br/><br/>
+<form action="../manage_restore" method="post">
 
-<form action="manage_copyToPath" method="post">
-
+  <input type="hidden" name="id" value="<dtml-var id>"/>
   <input type="submit" value="Restore Item" />
   
 </form>

@@ -1,28 +1,21 @@
-from Products.CMFCore import utils, DirectoryView
+from Products.CMFCore import utils
 from Products.Archetypes.public import *
 from Products.Archetypes import listTypes
+from Products.CMFCore.DirectoryView import registerDirectory
 from OFS import Folder
 
 from config import *
 import permissions
 
-DirectoryView.registerDirectory(SKINS_DIR, GLOBALS)
-
+registerDirectory('skins', GLOBALS)
 
 def initialize(context):
-    import trash, manager, catalog
+    import trash, manager, catalog, can
 
     utils.ToolInit(
       '%s Tool' % PROJECTNAME,
-      tools=(trash.PloneTrashCan,catalog.TrashCatalog),
+      tools=(can.PloneTrashCan,catalog.TrashCatalog),
       icon='tool.png', ).initialize(context)
-
-    context.registerClass(
-        trash.TrashedItem,
-        constructors=(trash.manage_addTrashedItemForm,
-                      trash.manage_addTrashedItem),
-        icon='tool.png',
-        )
         
     context.registerClass(
         manager.PloneTrashManager,

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tool-setup>
  <required tool_id="portal_trash_can"
-           class="ims.trashcan.trash.PloneTrashCan"/>
+           class="ims.trashcan.can.PloneTrashCan"/>
  <required tool_id="portal_trash_catalog"
            class="ims.trashcan.catalog.TrashCatalog"/>
 </tool-setup>
