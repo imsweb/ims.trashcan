@@ -16,9 +16,12 @@ ims.trashcan.egg-info/paster_plugins.txt
 ims.trashcan.egg-info/requires.txt
 ims.trashcan.egg-info/top_level.txt
 ims/trashcan/__init__.py
+ims/trashcan/can.py
 ims/trashcan/catalog.py
 ims/trashcan/config.py
 ims/trashcan/configure.zcml
+ims/trashcan/events.py
+ims/trashcan/interfaces.py
 ims/trashcan/manager.py
 ims/trashcan/permissions.py
 ims/trashcan/readme.txt
