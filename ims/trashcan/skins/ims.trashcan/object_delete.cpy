@@ -30,7 +30,7 @@ if lock_info.is_locked():
     return state.set(status = 'failure')
 else:
     ### start trash wrapper ###
-    can = getToolByName(context,'portal_trash_can')
+    can = context.portal_trash_can
     can.trash(context)
     ### end trash wrapper ###
     parent.manage_delObjects(context.getId())

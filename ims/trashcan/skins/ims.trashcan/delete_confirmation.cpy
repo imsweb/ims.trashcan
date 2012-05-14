@@ -34,7 +34,7 @@ if isLinked(context):
             mapping={u'title' : title})
     else:
         ### start trash wrapper ###
-        can = getToolByName(context,'portal_trash_can')
+        can = context.portal_trash_can
         can.trash(context)
         ### end trash wrapper ###
         parent.manage_delObjects(context.getId())

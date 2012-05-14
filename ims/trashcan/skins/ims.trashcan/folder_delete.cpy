@@ -40,7 +40,7 @@ for path in paths:
     try:
         obj = portal.restrictedTraverse(path)
         ### start trash wrapper ###
-        can = getToolByName(portal,'portal_trash_can')
+        can = context.portal_trash_can
         can.trash(obj)
         ### end trash wrapper ###
         obj_parent = obj.aq_inner.aq_parent
