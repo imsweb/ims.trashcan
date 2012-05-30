@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: ims.trashcan
-Version: 1.3
+Version: 1.4
 Summary: Stores deleted objects in a trash can before deletion.
 Home-page: http://svn.plone.org/svn/collective/
 Author: UNKNOWN
