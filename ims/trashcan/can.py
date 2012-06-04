@@ -31,7 +31,7 @@ class PloneTrashCan(Folder):
       data = self.zexpickle(ob)
       opath = '/'.join(ob.getPhysicalPath()[:-1])
       _trash = TrashedItem(id,title,data,opath)
-      self._setObject(id,_trash)
+      self._setObject(id,_trash,suppress_events=True)
       cat = getToolByName(self,'portal_trash_catalog')
     
     def restore(self, id):
