@@ -12,6 +12,8 @@ def importCatalogTool(portal, context):
 def importVarious(context):
     """Miscellanous steps import handle
     """
+    if context.readDataFile('imstrashcan_various.txt') is None:
+        return
     
     portal = context.getSite()
     importCatalogTool(portal,context)
