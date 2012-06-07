@@ -30,6 +30,7 @@ ims/trashcan/tool.png
 ims/trashcan/trash.py
 ims/trashcan/profiles/default/catalog.xml
 ims/trashcan/profiles/default/import_steps.xml
+ims/trashcan/profiles/default/imstrashcan_various.txt
 ims/trashcan/profiles/default/metadata.xml
 ims/trashcan/profiles/default/skins.xml
 ims/trashcan/profiles/default/toolset.xml
