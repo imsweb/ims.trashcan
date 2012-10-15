@@ -7,7 +7,7 @@ Regular Zope restrictions apply (duplicate ids, invalid types, etc.)
 </p>
 
 Original Title: <dtml-var Title><br/>
-Deleted on: <dtml-var CreationDate>.<br/><br/>
+Deleted on: <dtml-var created>.<br/><br/>
 
 <form action="../manage_restore" method="post">
 
