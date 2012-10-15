@@ -12,13 +12,7 @@ def trashEventHandler(ob,event):
         can.trash(ob)
 
 def trashAdded(ob,event):
-    """Index"""
-    cat = getToolByName(ob,'portal_trash_catalog',None)
-    if cat:
-      cat.indexObject(ob)
+    pass
 
 def trashRemoved(ob,event):
-    """Unindex"""
-    cat = getToolByName(ob,'portal_trash_catalog',None)
-    if cat:
-      cat.unindexObject(ob)
+    pass

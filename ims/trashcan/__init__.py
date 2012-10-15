@@ -10,11 +10,11 @@ import permissions
 registerDirectory('skins', GLOBALS)
 
 def initialize(context):
-    import trash, manager, catalog, can
+    import trash, manager, can
 
     utils.ToolInit(
       '%s Tool' % PROJECTNAME,
-      tools=(can.PloneTrashCan,catalog.TrashCatalog),
+      tools=(can.PloneTrashCan,),
       icon='tool.png', ).initialize(context)
         
     context.registerClass(

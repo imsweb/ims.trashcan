@@ -32,13 +32,12 @@ class PloneTrashCan(Folder):
       opath = '/'.join(ob.getPhysicalPath()[:-1])
       _trash = TrashedItem(id,title,data,opath)
       self._setObject(id,_trash,suppress_events=True)
-      cat = getToolByName(self,'portal_trash_catalog')
     
     def restore(self, id):
       """ restore the item to its original path
           if it exists, otherwise root """
       _trash = self[id]
-      data = _trash.data
+      data = _trash.data.open("r").read()
       opath = _trash.path
       try:
         source = self.restrictedTraverse(opath)
@@ -46,7 +45,6 @@ class PloneTrashCan(Folder):
         source = component.getUtility(ISiteRoot)
       ob = self.unzexpickle(data)
       source._setObject(id[:-18], ob)
-      cat = getToolByName(self,'portal_trash_catalog')
       self._delObject(id)
 
     def zexpickle(self, ob):
@@ -87,10 +85,9 @@ class PloneTrashCan(Folder):
       """
       from DateTime import DateTime
       expiredDate = DateTime()-self.disposal_frequency
-      cat = getToolByName(self,'portal_trash_catalog')
-      expired = cat(created={'query':expiredDate,'range':'max'})
-      for eid in [e.id for e in expired if e.id in self.objectIds()]:
-        self._delObject(eid)
+      for trash in self.objectValues():
+        if expiredDate > trash.created():
+          self._delObject(trash.getId())
 
     security.declareProtected(ManageTrash, 'manage_restore')
     def manage_restore(self, id, REQUEST=None):
