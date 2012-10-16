@@ -8,6 +8,7 @@ from DateTime import DateTime
 class TrashedItem(ObjectManager):
     implements(ITrashedItem)
     manage_main = DTMLFile('www/manage_trashedItem', globals())
+    _created = ''
 
     def __init__(self,id,title='',data=None,path=''):
       self.id=id
