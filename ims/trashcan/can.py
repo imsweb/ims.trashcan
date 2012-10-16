@@ -86,7 +86,7 @@ class PloneTrashCan(Folder):
       from DateTime import DateTime
       expiredDate = DateTime()-self.disposal_frequency
       for trash in self.objectValues():
-        if expiredDate > trash.created():
+        if expiredDate > trash.created() or not trash.created(): # "or not trash.created()" is to handle legacy items
           self._delObject(trash.getId())
 
     security.declareProtected(ManageTrash, 'manage_restore')
