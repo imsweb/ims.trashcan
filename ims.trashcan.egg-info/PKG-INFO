@@ -1,26 +1,12 @@
 Metadata-Version: 1.0
 Name: ims.trashcan
-Version: 2.0
+Version: 2.0.1
 Summary: Stores deleted objects in a trash can before deletion.
 Home-page: http://svn.plone.org/svn/collective/
 Author: UNKNOWN
 Author-email: UNKNOWN
 License: GPL
-Description: Introduction
-        ============
-        
-        
-        
-        This product may contain traces of nuts.
-        
-        Changelog
-        =========
-        
-        1.2dev (unreleased)
-        -------------------
-        
-        - Initial release
-        
+Description: UNKNOWN
 Platform: UNKNOWN
 Classifier: Framework :: Plone
 Classifier: Programming Language :: Python

@@ -3,7 +3,6 @@
  <import-step id="dcegintranet-various" version="20070712-01"
               handler="ims.trashcan.setuphandlers.importVarious"
               title="Additional ims.trashcan site policy setup">
-  <dependency step="catalog" />
     ims.trashcan site policy
  </import-step>
 </import-steps>

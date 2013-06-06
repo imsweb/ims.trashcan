@@ -1,13 +1,11 @@
 from setuptools import setup, find_packages
 import os
 
-version = '2.0'
+version = '2.1'
 
 setup(name='ims.trashcan',
       version=version,
       description="Stores deleted objects in a trash can before deletion.",
-      long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
