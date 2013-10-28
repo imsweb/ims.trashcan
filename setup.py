@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '2.1'
+version = '2.1.1'
 
 setup(name='ims.trashcan',
       version=version,
@@ -31,6 +31,4 @@ setup(name='ims.trashcan',
       [z3c.autoinclude.plugin]
       target = plone
       """,
-      setup_requires=["PasteScript"],
-      paster_plugins=["ZopeSkel"],
       )

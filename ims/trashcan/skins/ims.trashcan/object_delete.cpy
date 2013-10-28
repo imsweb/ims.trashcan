@@ -21,9 +21,12 @@ if REQUEST.get('REQUEST_METHOD', 'GET').upper() == 'GET':
 
 parent = context.aq_inner.aq_parent
 title = safe_unicode(context.title_or_id())
+try:
+    lock_info = context.restrictedTraverse('@@plone_lock_info')
+except AttributeError:
+    lock_info = None
 
-lock_info = context.restrictedTraverse('@@plone_lock_info')
-if lock_info.is_locked():
+if lock_info is not None and lock_info.is_locked():
     message = _(u'${title} is locked and cannot be deleted.',
             mapping={u'title' : title})
     context.plone_utils.addPortalMessage(message, type='error')
