@@ -5,8 +5,6 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="ims.trashcan">
 
-  <five:registerPackage package="." initialize=".initialize" />
-
   <!--<subscriber
      for="Products.Archetypes.interfaces.base.IBaseObject
           zope.app.container.interfaces.IObjectRemovedEvent"
