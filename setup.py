@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '2.3'
+version = '2.3.1'
 
 setup(name='ims.trashcan',
       version=version,
@@ -23,7 +23,6 @@ setup(name='ims.trashcan',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'ims.cronmanager>=1.3',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
