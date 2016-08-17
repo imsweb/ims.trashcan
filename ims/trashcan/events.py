@@ -1,18 +1,22 @@
-from zope import interface, component
-from Products.CMFCore.interfaces import ISiteRoot
-from Products.CMFCore.utils import getToolByName
+import plone.api
 
-def trashEventHandler(ob,event):
+def trashEventHandler(ob, event):
     """ Item is deleted - trash it!"""
-    portal = component.queryUtility(ISiteRoot)
-    if portal:
-      can = getToolByName(portal,'portal_trash_can',None)
-
-      if can: # it might not be installed!
+    try:
+        trashman = plone.api.portal.get_tool('portal_trash_can')
+    except plone.api.exc.InvalidParameterError:
+        pass # not installed
+    except plone.api.exc.CannotGetPortalError:
+        pass # portal is being deleted
+    else:
         can.trash(ob)
 
-def trashAdded(ob,event):
+
+def trashAdded(ob, event):
+    """ nothing for now """
     pass
 
-def trashRemoved(ob,event):
+
+def trashRemoved(ob, event):
+    """ nothing for now """
     pass

@@ -7,11 +7,11 @@
 
   <five:registerPackage package="." initialize=".initialize" />
 
-  <!--<subscriber
-     for="Products.Archetypes.interfaces.base.IBaseObject
-          zope.app.container.interfaces.IObjectRemovedEvent"
-     handler=".events.trashEventHandler" /> -->
-  <!-- we can't use this :( because it first fires on each child individually -->
+  <subscriber
+     for="plone.dexterity.interfaces.IDexterityItem
+          zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+     handler=".events.trashEventHandler" />
+  <!-- folders are not currently handled, but their content is -->
 
   <subscriber
      for=".interfaces.ITrashedItem

@@ -1,21 +1,19 @@
 from setuptools import setup, find_packages
 import os
 
-version = '2.3.3'
+version = '3.0'
 
 setup(name='ims.trashcan',
       version=version,
       description="Stores deleted objects in a trash can before deletion.",
-      # Get more strings from
-      # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        ],
+          "Framework :: Plone",
+          "Programming Language :: Python",
+      ],
       keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      author='Eric Wohnlich',
+      author_email='wohnlice@imsweb.com',
+      url='https://git.imsweb.com/plone/ims.trashcan',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['ims'],
@@ -23,7 +21,6 @@ setup(name='ims.trashcan',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
       ],
       entry_points="""
       # -*- Entry points: -*-
