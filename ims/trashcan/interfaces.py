@@ -18,4 +18,4 @@ class ITrashedItem(Interface):
 
     path = TextLine(
         title=u"Path",
-        description=u"The path to its restore point"poin
+        description=u"The path to its restore point",)
