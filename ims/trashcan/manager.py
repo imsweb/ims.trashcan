@@ -28,7 +28,7 @@ class PloneTrashManager(SimpleItem, PropertyManager):
     """Plone Trash Manager"""
     security = ClassSecurityInfo()
     meta_type = 'Plone Trash Manager'
-    manage = manage_main = PageTemplateFile(
+    manage_main = PageTemplateFile(
         'www/manage_trashManager', globals())
     index_html = None
 
