@@ -3,7 +3,7 @@ import plone.api
 def trashEventHandler(ob, event):
     """ Item is deleted - trash it!"""
     try:
-        trashman = plone.api.portal.get_tool('portal_trash_can')
+        can = plone.api.portal.get_tool('portal_trash_can')
     except plone.api.exc.InvalidParameterError:
         pass # not installed
     except plone.api.exc.CannotGetPortalError:
