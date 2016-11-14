@@ -1,10 +1,11 @@
-import plone.api
+from AccessControl.SecurityInfo import ClassSecurityInfo
 from StringIO import StringIO
-from OFS.Folder import Folder
-from AccessControl import ClassSecurityInfo
+
+import plone.api
 from DateTime import DateTime
-from trash import TrashedItem
+from OFS.Folder import Folder
 from permissions import ManageTrash
+from trash import TrashedItem
 
 
 def generate_id(start_id):
@@ -85,7 +86,6 @@ class PloneTrashCan(Folder):
         """Delete all of the content that is expired
            Content expires when it is older than X days, where X is the disposal_frequency property
         """
-        from DateTime import DateTime
         expiredDate = DateTime() - self.disposal_frequency
         for trash in self.objectValues():
             # "or not trash.created()" is to handle legacy items
@@ -93,7 +93,6 @@ class PloneTrashCan(Folder):
                 self._delObject(trash.getId())
 
     security.declareProtected(ManageTrash, 'manage_restore')
-
     def manage_restore(self, id, REQUEST=None):
         """Attempts to copy the trashed item to its original path"""
         self.restore(id)

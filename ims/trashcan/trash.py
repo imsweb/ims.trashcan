@@ -1,11 +1,11 @@
-from zope.interface import Interface, implements
-from OFS.ObjectManager import ObjectManager
 import plone.api
+from DateTime import DateTime
+from OFS.ObjectManager import ObjectManager
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from ZODB.blob import Blob
-from DateTime import DateTime
-
 from ims.trashcan.interfaces import ITrashedItem
+from zope.interface.declarations import implements
+
 
 class TrashedItem(ObjectManager):
     implements(ITrashedItem)

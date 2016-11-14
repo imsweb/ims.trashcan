@@ -1,9 +1,6 @@
 from Products.CMFCore import utils
-from OFS import Folder
 
-from config import *
 import permissions
-
 
 
 def initialize(context):
@@ -12,7 +9,7 @@ def initialize(context):
     import can
 
     utils.ToolInit(
-        '%s Tool' % PROJECTNAME,
+        'ims.trashcan tool',
         tools=(can.PloneTrashCan,),
         icon='tool.png', ).initialize(context)
 

@@ -1,10 +1,11 @@
-from AccessControl import ClassSecurityInfo
-from App.class_init import InitializeClass
+from AccessControl.SecurityInfo import ClassSecurityInfo
+
 import plone.api
+from App.class_init import InitializeClass
+from OFS.PropertyManager import PropertyManager
+from OFS.SimpleItem import SimpleItem
 from Products.CMFCore.permissions import ManagePortal
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from OFS.SimpleItem import SimpleItem
-from OFS.PropertyManager import PropertyManager
 from zope.component.hooks import setSite
 
 manage_addPloneTrashManagerForm = PageTemplateFile(
@@ -20,6 +21,7 @@ def manage_addPloneTrashManager(self, id, title='', REQUEST=None):
 
     if REQUEST is not None:
         REQUEST['RESPONSE'].redirect(self.absolute_url() + '/manage_main')
+
 
 add = manage_addPloneTrashManager
 
@@ -43,8 +45,8 @@ class PloneTrashManager(SimpleItem, PropertyManager):
         self.id = id
         self.title = title
 
-    security.declareProtected(ManagePortal, 'manage_takeOutTrash')
-    def manage_takeOutTrash(self):
+    security.declareProtected(ManagePortal, 'manage_empty_trash')
+    def manage_empty_trash(self):
         """Crawls through the portals and deletes expired trash"""
         context = self.restrictedTraverse('/')
         self.site_crawl(context)
@@ -57,12 +59,13 @@ class PloneTrashManager(SimpleItem, PropertyManager):
             try:
                 can = plone.api.portal.get_tool('portal_trash_can')
             except plone.api.exc.InvalidParameterError:
-                pass # not installed
+                pass  # not installed
             else:
                 can()
         for folder in context.objectValues('Folder'):
             self.site_crawl(folder)
 
-    __call__ = manage_takeOutTrash
+    __call__ = manage_empty_trash
+
 
 InitializeClass(PloneTrashManager)
