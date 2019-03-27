@@ -1,6 +1,7 @@
 from Products.CMFCore import utils
 
 import permissions
+MAX_TRASH_SIZE = 1e9
 
 
 def initialize(context):
