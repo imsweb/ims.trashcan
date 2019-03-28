@@ -41,7 +41,7 @@ class PloneTrashCan(Folder):
         except TypeError:
             return True
         else:
-            if primary_field and primary_field.value.size > MAX_TRASH_SIZE:
+            if primary_field and primary_field.value and primary_field.value.size > MAX_TRASH_SIZE:
                 return False
             return True
 
