@@ -1,21 +1,20 @@
-from AccessControl.SecurityInfo import ClassSecurityInfo
-from six import StringIO
-
 import plone.api
+from AccessControl.SecurityInfo import ClassSecurityInfo
 from DateTime import DateTime
 from OFS.Folder import Folder
 from permissions import ManageTrash
-from trash import TrashedItem
-from . import MAX_TRASH_SIZE
-from ZODB.blob import Blob
-from ZODB.interfaces import IBlobStorage
 from plone.rfc822.interfaces import IPrimaryFieldInfo
+from six import StringIO
+from trash import TrashedItem
+
+from . import MAX_TRASH_SIZE
 
 try:
-    from ims.upload.content import Chunk
+    from ims.upload.content import Chunk, ChunkedFile
 except NameError:
     class Chunk(object):
         pass
+
 
 def generate_id(start_id):
     now = DateTime()
@@ -34,8 +33,13 @@ class PloneTrashCan(Folder):
     _properties = ({'id': 'disposal_frequency', 'type': 'int', 'mode': 'w'},)
 
     @staticmethod
-    def valid_size(ob):
+    def trashable(ob):
         """ Don't trash anything too large. Only works on primary field objects """
+        if isinstance(ob, Chunk):
+            return False
+        elif isinstance(ob, ChunkedFile):
+            return False
+
         try:
             primary_field = IPrimaryFieldInfo(ob)
         except TypeError:
@@ -47,7 +51,7 @@ class PloneTrashCan(Folder):
 
     def trash(self, ob):
         """ trash the item """
-        if not isinstance(ob, Chunk) and self.valid_size(ob):
+        if self.trashable(ob):
             id = generate_id(ob.getId())
             title = ob.Title()
             data = self.zexpickle(ob)
@@ -101,6 +105,7 @@ class PloneTrashCan(Folder):
             return None
 
     security.declareProtected(ManageTrash, 'deleteExpired')
+
     def deleteExpired(self):
         """Delete all of the content that is expired
            Content expires when it is older than X days, where X is the disposal_frequency property
@@ -112,6 +117,7 @@ class PloneTrashCan(Folder):
                 self._delObject(trash.getId())
 
     security.declareProtected(ManageTrash, 'manage_restore')
+
     def manage_restore(self, id, REQUEST=None):
         """Attempts to copy the trashed item to its original path"""
         self.restore(id)
