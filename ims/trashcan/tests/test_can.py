@@ -1,4 +1,5 @@
 import plone.api
+from plone.app.textfield.value import RichTextValue
 
 from plone.namedfile.file import NamedBlobFile
 from . import base
@@ -8,6 +9,7 @@ class TestTrashCan(base.IntegrationTestCase):
 
     def test_document(self):
         page = plone.api.content.create(id='page1', type='Document', title='My page', container=self.portal)
+        page.text = RichTextValue('some text')
         plone.api.content.delete(page)
         self.assertEqual(len(self.can.objectIds()), 1)
 
