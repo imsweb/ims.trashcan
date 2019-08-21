@@ -2,18 +2,18 @@ import plone.api
 from AccessControl.SecurityInfo import ClassSecurityInfo
 from DateTime import DateTime
 from OFS.Folder import Folder
-from permissions import ManageTrash
 from plone.rfc822.interfaces import IPrimaryFieldInfo
-from six import StringIO
-from trash import TrashedItem
+from io import BytesIO
 
-from . import MAX_TRASH_SIZE
+from .permissions import ManageTrash
+from .trash import TrashedItem
 
 try:
     from ims.upload.content import Chunk, ChunkedFile
 except NameError:
     class Chunk(object):
         pass
+MAX_TRASH_SIZE = 1e9
 
 
 def generate_id(start_id):
@@ -78,14 +78,14 @@ class PloneTrashCan(Folder):
 
     def zexpickle(self, ob):
         """ pickle + add zexp wrapper """
-        f = StringIO()
+        f = BytesIO()
         ob._p_jar.exportFile(ob._p_oid, f)
         data = f.getvalue()
         return data
 
     def unzexpickle(self, data):
         """ unpickle + remove zexp wrapper """
-        f = StringIO()
+        f = BytesIO()
         f.write(data)
 
         # we HAVE to skip the first four characters, which are just
@@ -125,7 +125,7 @@ class PloneTrashCan(Folder):
         """Attempts to copy the trashed item to its original path"""
         self.restore(id)
 
-        msg = u'%s has been restored.' % id
+        msg = '%s has been restored.' % id
         if REQUEST is not None:
             return self.manage_main(self, REQUEST, manage_tabs_message=msg)
 

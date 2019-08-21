@@ -3,12 +3,13 @@ from DateTime import DateTime
 from OFS.ObjectManager import ObjectManager
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from ZODB.blob import Blob
-from ims.trashcan.interfaces import ITrashedItem
-from zope.interface.declarations import implements
+from zope.interface.declarations import implementer
+
+from .interfaces import ITrashedItem
 
 
+@implementer(ITrashedItem)
 class TrashedItem(ObjectManager):
-    implements(ITrashedItem)
     manage_main = PageTemplateFile('www/manage_trashedItem', globals())
     _created = ''
 
