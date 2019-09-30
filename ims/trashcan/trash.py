@@ -24,6 +24,7 @@ class TrashedItem(ObjectManager):
             'title': self.Title,
             'created': plone.api.portal.get_localized_time(self._created, long_format=True),
             'id': self.id,
+            'path': self.path,
         }
 
     def created(self):

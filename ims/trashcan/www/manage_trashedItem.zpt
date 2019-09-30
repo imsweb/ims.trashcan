@@ -12,6 +12,8 @@
         <dd tal:content="props/title" />
         <dt>Deleted on</dt>
         <dd tal:content="props/created" />
+        <dt>Destination path</dt>
+        <dd tal:content="props/path" />
     </dl>
 
     <form action="../manage_restore" method="post">
