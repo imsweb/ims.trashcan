@@ -29,7 +29,7 @@ class TestTrashCan(base.IntegrationTestCase):
     def test_file_limit(self):
         _file = plone.api.content.create(id='file1', type='File', title='My file', container=self.portal)
         _file.file = NamedBlobFile()
-        _file.file.data = u'hello, world'
+        _file.file.data = 'hello, world'
         _file.file.__dict__['size'] = 1e10  # fake it
         plone.api.content.delete(_file)
         self.assertEqual(len(self.can.objectIds()), 0)

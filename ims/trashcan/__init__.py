@@ -1,14 +1,10 @@
 from Products.CMFCore import utils
 
-import permissions
-MAX_TRASH_SIZE = 1e9
+from . import can
+from . import manager
 
 
 def initialize(context):
-    import trash
-    import manager
-    import can
-
     utils.ToolInit(
         'ims.trashcan tool',
         tools=(can.PloneTrashCan,),
