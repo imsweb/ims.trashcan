@@ -23,3 +23,7 @@ class ITrashedItem(Interface):
         title="Path",
         description="The path to its restore point",
     )
+
+
+class ITrashCan(Interface):
+    """ marker """

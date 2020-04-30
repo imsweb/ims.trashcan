@@ -1,10 +1,16 @@
+from io import BytesIO
+
 import plone.api
 from AccessControl.SecurityInfo import ClassSecurityInfo
 from DateTime import DateTime
 from OFS.Folder import Folder
+from Products.Five import BrowserView
+from plone.protect.interfaces import IDisableCSRFProtection
 from plone.rfc822.interfaces import IPrimaryFieldInfo
-from io import BytesIO
+from zope.interface import implementer
+from zope.interface.declarations import alsoProvides
 
+from .interfaces import ITrashCan
 from .permissions import ManageTrash
 from .trash import TrashedItem
 
@@ -22,10 +28,11 @@ def generate_id(start_id):
     return start_id + '-' + time_str
 
 
+@implementer(ITrashCan)
 class PloneTrashCan(Folder):
     """Plone Trash Can"""
     security = ClassSecurityInfo()
-    disposal_frequency = 7
+    disposal_frequency = 0
 
     manage_options = [{'label': 'Trash Can', 'action': 'manage_main'},
                       {'label': 'Configuration', 'action': 'manage_propertiesForm'}]
@@ -129,4 +136,9 @@ class PloneTrashCan(Folder):
         if REQUEST is not None:
             return self.manage_main(self, REQUEST, manage_tabs_message=msg)
 
-    __call__ = deleteExpired
+
+class TrashCanClear(BrowserView):
+    def __call__(self):
+        alsoProvides(self.request, IDisableCSRFProtection)
+        self.context.deleteExpired()
+        return "content deleted"
