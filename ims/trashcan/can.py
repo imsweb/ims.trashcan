@@ -32,7 +32,7 @@ def generate_id(start_id):
 class PloneTrashCan(Folder):
     """Plone Trash Can"""
     security = ClassSecurityInfo()
-    disposal_frequency = 0
+    disposal_frequency = 7
 
     manage_options = [{'label': 'Trash Can', 'action': 'manage_main'},
                       {'label': 'Configuration', 'action': 'manage_propertiesForm'}]
@@ -135,6 +135,8 @@ class PloneTrashCan(Folder):
         msg = '%s has been restored.' % id
         if REQUEST is not None:
             return self.manage_main(self, REQUEST, manage_tabs_message=msg)
+
+    __call__ = deleteExpired
 
 
 class TrashCanClear(BrowserView):
