@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '4.1'
+version = '4.1.1'
 
 setup(name='ims.trashcan',
       version=version,
@@ -14,7 +14,7 @@ setup(name='ims.trashcan',
       author='Eric Wohnlich',
       author_email='wohnlice@imsweb.com',
       url='https://git.imsweb.com/plone/ims.trashcan',
-      license='GPL',
+      license='MIT',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['ims'],
       include_package_data=True,

@@ -114,8 +114,7 @@ class PloneTrashCan(Folder):
         else:
             return None
 
-    security.declareProtected(ManageTrash, 'deleteExpired')
-
+    @security.protected(ManageTrash)
     def deleteExpired(self):
         """Delete all of the content that is expired
            Content expires when it is older than X days, where X is the disposal_frequency property
@@ -126,8 +125,7 @@ class PloneTrashCan(Folder):
             if expiredDate > trash.created() or not trash.created():
                 self._delObject(trash.getId())
 
-    security.declareProtected(ManageTrash, 'manage_restore')
-
+    @security.protected(ManageTrash)
     def manage_restore(self, id, REQUEST=None):
         """Attempts to copy the trashed item to its original path"""
         self.restore(id)
