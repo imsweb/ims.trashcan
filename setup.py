@@ -1,14 +1,16 @@
 from setuptools import setup, find_packages
 
-version = '4.1.1'
+version = '4.1.2'
 
 setup(name='ims.trashcan',
       version=version,
       description="Stores deleted objects in a trash can before deletion.",
+      long_description=open("README.md").read(),
+      long_description_content_type='text/markdown',
       classifiers=[
-          "Framework :: Plone :: 5.0",
-          "Framework :: Plone :: 5.1",
+          "Framework :: Plone :: 5.2",
           "Programming Language :: Python",
+          "Programming Language :: Python 3",
       ],
       keywords='',
       author='Eric Wohnlich',

@@ -35,16 +35,14 @@ fully removed from it). This will be respected by this tool's `__call__` method 
 programmatically:
 
 ```python
->>> can = getToolByName(context, 'portal_trash_can')
+>>> import plone.api
+>>> can = plone.api.portal.get('portal_trash_can')
 >>> can()
 ```
 
 or via HTTP request `http://localhost:8080/Plone/portal_trash_can`
 
-It is recommended that you set up a cron job to execute this daily. It is also possible to create
-a Plone Trash Manager to empty expired content on all sites in the Zope client. To do this, create a
-`Plone Trash Manager` in the root of your ZMI. Set a single cron job to then access its `__call__` method,
-default: `http://localhost:8080/trash_manager`
+It is recommended that you set up a cron job to execute this periodically.
 
 
 # Trashable Items
