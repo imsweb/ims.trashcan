@@ -1,8 +1,8 @@
 from plone.app.testing import PloneSandboxLayer, IntegrationTesting, FunctionalTesting, applyProfile
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 import ims.trashcan
-import ims.upload
 import collective.js.jqueryui
+
 
 class TrashcanSiteLayer(PloneSandboxLayer):
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
@@ -12,12 +12,10 @@ class TrashcanSiteLayer(PloneSandboxLayer):
         # The z3c.autoinclude feature is disabled in the Plone fixture base
         # layer.
         self.loadZCML(package=collective.js.jqueryui)
-        self.loadZCML(package=ims.upload)
         self.loadZCML(package=ims.trashcan)
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ims.trashcan:default')
-        applyProfile(portal, 'ims.upload:default')
 
 
 TRASHCAN_SITE_FIXTURE = TrashcanSiteLayer()

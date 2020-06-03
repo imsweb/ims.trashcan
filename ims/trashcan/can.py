@@ -8,17 +8,13 @@ from Products.Five import BrowserView
 from plone.protect.interfaces import IDisableCSRFProtection
 from plone.rfc822.interfaces import IPrimaryFieldInfo
 from zope.interface import implementer
+from plone.dexterity.utils import resolveDottedName
 from zope.interface.declarations import alsoProvides
 
 from .interfaces import ITrashCan
 from .permissions import ManageTrash
 from .trash import TrashedItem
 
-try:
-    from ims.upload.content import Chunk, ChunkedFile
-except NameError:
-    class Chunk(object):
-        pass
 MAX_TRASH_SIZE = 1e9
 
 
@@ -42,10 +38,14 @@ class PloneTrashCan(Folder):
     @staticmethod
     def trashable(ob):
         """ Don't trash anything too large. Only works on primary field objects """
-        if isinstance(ob, Chunk):
-            return False
-        elif isinstance(ob, ChunkedFile):
-            return False
+        for disallowed in plone.api.portal.get_registry_record('ims.trashcan.blacklist', default=[]):
+            try:
+                interface = resolveDottedName(disallowed)
+            except ModuleNotFoundError:
+                pass
+            else:
+                if interface.providedBy(ob):
+                    return False
 
         try:
             primary_field = IPrimaryFieldInfo(ob)
