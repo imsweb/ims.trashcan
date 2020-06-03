@@ -10,7 +10,7 @@ setup(name='ims.trashcan',
       classifiers=[
           "Framework :: Plone :: 5.2",
           "Programming Language :: Python",
-          "Programming Language :: Python 3",
+          "Programming Language :: Python :: 3",
       ],
       keywords='',
       author='Eric Wohnlich',
