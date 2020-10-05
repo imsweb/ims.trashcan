@@ -14,7 +14,7 @@ class IntegrationTestCase(unittest.TestCase):
     layer = testing.INTEGRATION
 
     def setUp(self):
-        super(IntegrationTestCase, self).setUp()
+        super().setUp()
         self.portal = self.layer['portal']
         self.can = self.portal.portal_trash_can
         self.request = self.layer
@@ -25,7 +25,7 @@ class FunctionalTestCase(IntegrationTestCase):
     layer = testing.FUNCTIONAL
 
     def setUp(self):
-        super(FunctionalTestCase, self).setUp()
+        super().setUp()
         self.browser = Browser(self.layer['app'])
         self.browser.handleErrors = False
         self.browser.addHeader(
