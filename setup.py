@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '4.1.3'
+version = '5.0'
 
 setup(name='ims.trashcan',
       version=version,
@@ -8,7 +8,7 @@ setup(name='ims.trashcan',
       long_description=open("README.md").read(),
       long_description_content_type='text/markdown',
       classifiers=[
-          "Framework :: Plone :: 5.2",
+          "Framework :: Plone :: 6",
           "Programming Language :: Python",
           "Programming Language :: Python :: 3",
       ],
