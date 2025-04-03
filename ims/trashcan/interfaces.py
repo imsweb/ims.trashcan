@@ -3,7 +3,8 @@ from zope.schema import Bytes, TextLine
 
 
 class ITrashedItem(Interface):
-    """ deleted item with trash wrapper """
+    """deleted item with trash wrapper"""
+
     id = TextLine(
         title="ID",
         description="ID",
@@ -26,4 +27,4 @@ class ITrashedItem(Interface):
 
 
 class ITrashCan(Interface):
-    """ marker """
+    """marker"""

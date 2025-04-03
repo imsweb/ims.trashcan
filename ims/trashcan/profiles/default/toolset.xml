@@ -1,5 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <tool-setup>
-    <required tool_id="portal_trash_can"
-              class="ims.trashcan.can.PloneTrashCan"/>
+  <required class="ims.trashcan.can.PloneTrashCan"
+            tool_id="portal_trash_can"
+  />
 </tool-setup>

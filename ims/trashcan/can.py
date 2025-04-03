@@ -20,25 +20,32 @@ MAX_TRASH_SIZE = 1e9
 
 def generate_id(start_id):
     now = DateTime()
-    time_str = '%s.%s' % (now.strftime('%Y-%m-%d'), str(now.millis())[7:])
-    return start_id + '-' + time_str
+    time_str = f"{now.strftime('%Y-%m-%d')}.{str(now.millis())[7:]}"
+    return start_id + "-" + time_str
 
 
 @implementer(ITrashCan)
 class PloneTrashCan(Folder):
     """Plone Trash Can"""
+
     security = ClassSecurityInfo()
     disposal_frequency = 7
 
-    manage_options = [{'label': 'Trash Can', 'action': 'manage_main'},
-                      {'label': 'Configuration', 'action': 'manage_propertiesForm'}]
+    manage_options: list = None
 
-    _properties = ({'id': 'disposal_frequency', 'type': 'int', 'mode': 'w'},)
+    _properties = ({"id": "disposal_frequency", "type": "int", "mode": "w"},)
+
+    def __init__(self, id):  # noqa: A002
+        super().__init__(id)
+        self.manage_options = [
+            {"label": "Trash Can", "action": "manage_main"},
+            {"label": "Configuration", "action": "manage_propertiesForm"},
+        ]
 
     @staticmethod
     def trashable(ob):
-        """ Don't trash anything too large. Only works on primary field objects """
-        for disallowed in plone.api.portal.get_registry_record('ims.trashcan.blacklist', default=[]):
+        """Don't trash anything too large. Only works on primary field objects"""
+        for disallowed in plone.api.portal.get_registry_record("ims.trashcan.blacklist", default=[]):
             try:
                 interface = resolveDottedName(disallowed)
             except ModuleNotFoundError:
@@ -52,27 +59,27 @@ class PloneTrashCan(Folder):
         except TypeError:
             return True
         else:
-            if primary_field and \
-                    primary_field.value and \
-                    hasattr(primary_field.value, 'size') and \
-                    primary_field.value.size > MAX_TRASH_SIZE:
-                return False
-            return True
+            return not (
+                primary_field
+                and primary_field.value
+                and hasattr(primary_field.value, "size")
+                and primary_field.value.size > MAX_TRASH_SIZE
+            )
 
     def trash(self, ob):
-        """ trash the item """
+        """trash the item"""
         if self.trashable(ob):
-            id = generate_id(ob.getId())
+            object_id = generate_id(ob.getId())
             title = ob.Title()
             data = self.zexpickle(ob)
-            opath = '/'.join(ob.getPhysicalPath()[:-1])
-            _trash = TrashedItem(id, title, data, opath)
-            self._setObject(id, _trash, suppress_events=True)
+            opath = "/".join(ob.getPhysicalPath()[:-1])
+            _trash = TrashedItem(object_id, title, data, opath)
+            self._setObject(object_id, _trash, suppress_events=True)
 
-    def restore(self, id):
-        """ restore the item to its original path
-            if it exists, otherwise root """
-        _trash = self[id]
+    def restore(self, object_id):
+        """restore the item to its original path
+        if it exists, otherwise root"""
+        _trash = self[object_id]
         data = _trash.data.open("r").read()
         opath = _trash.path
         try:
@@ -80,18 +87,18 @@ class PloneTrashCan(Folder):
         except KeyError:  # Path is invalid, likely the container was moved or deleted. Restore to root
             source = plone.api.portal.get()
         ob = self.unzexpickle(data)
-        source._setObject(id[:-18], ob)
-        self._delObject(id)
+        source._setObject(object_id[:-18], ob)
+        self._delObject(object_id)
 
     def zexpickle(self, ob):
-        """ pickle + add zexp wrapper """
+        """pickle + add zexp wrapper"""
         f = BytesIO()
         ob._p_jar.exportFile(ob._p_oid, f)
         data = f.getvalue()
         return data
 
     def unzexpickle(self, data):
-        """ unpickle + remove zexp wrapper """
+        """unpickle + remove zexp wrapper"""
         f = BytesIO()
         f.write(data)
 
@@ -117,7 +124,7 @@ class PloneTrashCan(Folder):
     @security.protected(ManageTrash)
     def deleteExpired(self):
         """Delete all of the content that is expired
-           Content expires when it is older than X days, where X is the disposal_frequency property
+        Content expires when it is older than X days, where X is the disposal_frequency property
         """
         expiredDate = DateTime() - self.disposal_frequency
         for trash in self.objectValues():
@@ -126,11 +133,11 @@ class PloneTrashCan(Folder):
                 self._delObject(trash.getId())
 
     @security.protected(ManageTrash)
-    def manage_restore(self, id, REQUEST=None):
+    def manage_restore(self, id, REQUEST=None):  # noqa: A002
         """Attempts to copy the trashed item to its original path"""
         self.restore(id)
 
-        msg = '%s has been restored.' % id
+        msg = f"{id} has been restored."
         if REQUEST is not None:
             return self.manage_main(self, REQUEST, manage_tabs_message=msg)
 

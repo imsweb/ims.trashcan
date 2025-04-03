@@ -10,10 +10,10 @@ from .interfaces import ITrashedItem
 
 @implementer(ITrashedItem)
 class TrashedItem(ObjectManager):
-    manage_main = PageTemplateFile('www/manage_trashedItem', globals())
-    _created = ''
+    manage_main = PageTemplateFile("www/manage_trashedItem", globals())
+    _created = ""
 
-    def __init__(self, id, title='', data=None, path=''):
+    def __init__(self, id, title="", data=None, path=""):  # noqa: A002
         self.id = id
         self.data = Blob(data)
         self.path = path
@@ -22,15 +22,15 @@ class TrashedItem(ObjectManager):
 
     def manage_properties(self):
         return {
-            'title': self.Title,
-            'created': plone.api.portal.get_localized_time(self._created, long_format=True),
-            'id': self.id,
-            'path': self.path,
+            "title": self.Title,
+            "created": plone.api.portal.get_localized_time(self._created, long_format=True),
+            "id": self.id,
+            "path": self.path,
         }
 
     def created(self):
         return self._created
 
     def getId(self):
-        """ needed for indexing """
+        """needed for indexing"""
         return self.id

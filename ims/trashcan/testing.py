@@ -1,29 +1,47 @@
-from plone.app.testing import PloneSandboxLayer, IntegrationTesting, FunctionalTesting, applyProfile
-from plone.app.testing import PLONE_FIXTURE
 import ims.trashcan
+from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
+from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import IntegrationTesting
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import applyProfile
+from plone.testing.zope import WSGI_SERVER_FIXTURE
 
 
-class TrashcanSiteLayer(PloneSandboxLayer):
-    defaultBases = (PLONE_FIXTURE,)
+class TrashCanLayer(PloneSandboxLayer):
+    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
-    def setUpZope(self, app, configuration_context):
-        # Load any other ZCML that is required for your tests.
-        # The z3c.autoinclude feature is disabled in the Plone fixture base
-        # layer.
+    def setUpZope(self, app, configurationContext):
+        super().setUpZope(app, configurationContext)
         self.loadZCML(package=ims.trashcan)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'ims.trashcan:default')
+        super().setUpPloneSite(portal)
+        applyProfile(portal, "ims.trashcan:default")
 
 
-TRASHCAN_SITE_FIXTURE = TrashcanSiteLayer()
+FIXTURE = TrashCanLayer()
 
-INTEGRATION = IntegrationTesting(
-    bases=(TRASHCAN_SITE_FIXTURE,),
-    name="ims.trashcan:Integration"
+INTEGRATION_TESTING = IntegrationTesting(
+    bases=(FIXTURE,),
+    name="TrashCanLayer:IntegrationTesting",
 )
 
-FUNCTIONAL = FunctionalTesting(
-    bases=(TRASHCAN_SITE_FIXTURE,),
-    name="ims.trashcan:Functional"
+FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(FIXTURE, WSGI_SERVER_FIXTURE),
+    name="TrashCanLayer:FunctionalTesting",
+)
+
+RESTAPI_TESTING = FunctionalTesting(
+    bases=(FIXTURE, WSGI_SERVER_FIXTURE),
+    name="TrashCanLayer:RestAPITesting",
+)
+
+ACCEPTANCE_TESTING = FunctionalTesting(
+    bases=(
+        FIXTURE,
+        REMOTE_LIBRARY_BUNDLE_FIXTURE,
+        WSGI_SERVER_FIXTURE,
+    ),
+    name="TrashCanLayer:AcceptanceTesting",
 )
