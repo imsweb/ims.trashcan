@@ -1,6 +1,6 @@
-from Products.CMFCore import permissions as CMFCorePermissions
+from AccessControl.Permission import addPermission
 
 # manage the trash can
 ManageTrash = "ims.trashcan: Manage trash can"
 
-CMFCorePermissions.setDefaultRoles(ManageTrash, ('Manager',))
+addPermission(ManageTrash, ("Manager",))
