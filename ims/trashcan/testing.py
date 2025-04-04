@@ -12,11 +12,9 @@ class TrashCanLayer(PloneSandboxLayer):
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
-        super().setUpZope(app, configurationContext)
         self.loadZCML(package=ims.trashcan)
 
     def setUpPloneSite(self, portal):
-        super().setUpPloneSite(portal)
         applyProfile(portal, "ims.trashcan:default")
 
 
